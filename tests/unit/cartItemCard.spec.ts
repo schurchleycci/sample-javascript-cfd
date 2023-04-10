@@ -7,7 +7,7 @@ describe("CartItemCard.vue", () => {
       id: 1,
       name: "Sweet Potato Fries",
       description: "Fried potato rectangles",
-      price: "4.99",
+      price: "2.99",
       imageId: "1",
     };
     const wrapper = mount(CartItemCard, {
