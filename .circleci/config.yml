@@ -33,7 +33,10 @@ jobs:
           pkg-manager: "yarn"
       - run:
           name: Run tests
-          command: yarn run test:unit
+          command: |
+          git bisect bad e7cbf87ef884221f07ac06cd1133cba9553a601a
+          git bisect good 7ab77be2fa5a39cb0a701cdc786d316e17a14715
+          git bisect run yarn run test:unit
 
 workflows:
   # Below is the definition of your workflow.
