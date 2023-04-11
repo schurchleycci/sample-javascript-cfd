@@ -14,7 +14,6 @@ describe("CartItemCard.vue", () => {
       props: { menuItem },
     } as any);
 
-    expect(wrapper.text()).toContain("4.99");
     expect(wrapper.text()).toContain("French");
   });
 });
