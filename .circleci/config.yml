@@ -23,7 +23,6 @@ jobs:
     docker:
       - image: cimg/node:16.16
     # Then run your tests!
-    # CircleCI will report the results back to your VCS provider.
     steps:
       # Checkout the code as the first step.
       - checkout
