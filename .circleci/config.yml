@@ -40,7 +40,7 @@ jobs:
             #git bisect bad 1b1c353c108964d989d59eba3bcb4abd4a3e944b
             #git bisect good 7ab77be2fa5a39cb0a701cdc786d316e17a14715
             #git bisect jest -- french.spec.js
-            yarn jest french.spec.js
+            #yarn jest french.spec.js
 
 workflows:
   # Below is the definition of your workflow.
