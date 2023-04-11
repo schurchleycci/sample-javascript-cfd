@@ -11,7 +11,7 @@ describe("CartItemCard.vue", () => {
       imageId: "1",
     };
     const wrapper = mount(MenuItemCard, {
-      props: { menuItem },
+      props: { menuItem }
     } as any);
 
     expect(wrapper.find("ion-card-title").text()).toEqual("French Fries");
