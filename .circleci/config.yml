@@ -36,7 +36,7 @@ jobs:
           name: Run tests
           command: |
             touch ./tests/unit/french.spec.ts
-            echo "import { mount } from \"@vue/test-utils\";import CartItemCard from \"@/components/CartItemCard.vue\";describe(\"CartItemCard.vue\", () => {it(\"renders the menuItem prop data\", () => {const menuItem = {id: 1, name: \"Sweet Potato Fries\", description: \"Fried potato rectangles\", price: \"2.99\", imageId: \"1\",};const wrapper = mount(CartItemCard, {props: { menuItem },} as any);expect(wrapper.text()).toContain(\"French\");});});" > ./tests/unit/french.spec.ts
+            echo "import { mount } from \"@vue/test-utils\";import CartItemCard from \"@/components/CartItemCard.vue\";describe(\"CartItemCard.vue\", () => {it(\"renders the menuItem prop data\", () => {const menuItem = {id: 1, name: \"French Fries\", description: \"Fried potato rectangles\", price: \"2.99\", imageId: \"1\",};const wrapper = mount(CartItemCard, {props: { menuItem },} as any);expect(wrapper.text()).toContain(\"French\");});});" > ./tests/unit/french.spec.ts
             cat ./tests/unit/french.spec.ts
             #git bisect start
             #git bisect bad 1b1c353c108964d989d59eba3bcb4abd4a3e944b
