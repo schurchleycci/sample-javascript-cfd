@@ -10,7 +10,7 @@
     .cartCard {
         display: flex;
         flex-direction: row;
-        height: 150px;
+        height: 100px;
     }
 
     .cartCard div {
