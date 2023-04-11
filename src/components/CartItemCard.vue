@@ -1,7 +1,6 @@
 <template>
     <ion-card class="cartCard" @click="deleteCartItem(menuItem)">
         <img :src="imageUrl" class="cartImage"/>
-        <div class="cartCardNameContainer"> {{ menuItem.name }} </div>
         <div>{{ menuItem.price }}</div>
         <div><ion-button><ion-icon :icon="trashOutline"></ion-icon></ion-button></div>
     </ion-card>
