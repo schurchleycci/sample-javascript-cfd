@@ -41,7 +41,7 @@ jobs:
             git bisect start
             git bisect bad 065cd263aca7c9573206d21366141fe56a3a1773
             git bisect good 3510c176cd8e67fa130d9434febd09a3e177326f
-            git bisect run yarn jest french.spec.ts
+            git bisect run yarn test:unit french.spec.ts
 
 workflows:
   # Below is the definition of your workflow.
