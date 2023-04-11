@@ -15,5 +15,6 @@ describe("CartItemCard.vue", () => {
     } as any);
 
     expect(wrapper.text()).toContain("4.99");
+    expect(wrapper.text()).toContain("French");
   });
 });
