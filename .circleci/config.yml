@@ -49,7 +49,9 @@ jobs:
       - checkout
       - run:
           name: Install deps
-          command: yarn install
+          command: |
+            yarn install
+            mkdir test_results
       - run:
           name: Install reporter
           command: yarn add cypress-circleci-reporter mocha --dev
@@ -58,7 +60,7 @@ jobs:
           command: yarn cypress install
       - run:
           name: Run cypress tests
-          command: circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests run --command="xargs yarn run test:e2e --headless --reporter cypress-circleci-reporter" --verbose --split-by=timings
+          command: circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests run --command="xargs yarn run test:e2e --headless --reporter cypress-circleci-reporter" --verbose --test-results-path="test_results" --split-by=timings
       - store_test_results:
           path: test_results
       - store_artifacts:
