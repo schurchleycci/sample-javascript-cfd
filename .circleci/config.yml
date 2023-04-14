@@ -48,10 +48,11 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   sample:
     jobs:
-      - test
-     # - cypress/run:
-      #    executor: "node-cypress"
-       #   command: yarn run test:e2e --headless
-        #  yarn: true
+     # - test
+       - cypress/run:
+           executor: "node-cypress"
+           post-install: "yarn add cypress-circleci-reporter mocha --dev"
+           command: yarn run test:e2e --headless --reporter cypress-circleci-reporter
+           yarn: true
       # For running simple node tests, you could optionally instead use the node/test job from the orb to replicate and replace the manually defined "test" job above in fewer lines.
       # - node/test
