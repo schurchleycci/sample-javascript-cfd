@@ -44,18 +44,20 @@ jobs:
   run_cypress_tests:
     docker:
         - image: cimg/node:16.10
-    parallelism: 3        # or any other number that suits your needs
     steps:
       - checkout
       - run:
           name: Install deps
           command: yarn install
+          - run:
+          name: Install reporter
+          command: yarn add cypress-circleci-reporter mocha --dev
       - run:
           name: Install cypress binary
           command: yarn cypress install
       - run:
           name: Run cypress tests
-          command: yarn cypress run --spec "$(circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests split --split-by=timings | paste -sd "," -)" --reporter cypress-circleci-reporter
+          command: circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests run --command-"yarn cypress run --reporter cypress-circleci-reporter"
       - store_test_results:
           path: test_results
       - store_artifacts:
