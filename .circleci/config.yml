@@ -21,7 +21,7 @@ jobs:
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
     docker:
-      - image: cimg/node:16.16
+      - image: cimg/node:19.9.0
     # Then run your tests!
     steps:
       # Checkout the code as the first step.
@@ -47,7 +47,9 @@ jobs:
     parallelism: 3        # or any other number that suits your needs
     steps:
       - checkout
-      - yarn install
+       run:
+          name: Install deps
+          command: yarn install
       - run:
           name: Run cypress tests
           command: yarn cypress run --spec "$(circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests split --split-by=timings | paste -sd "," -)" --reporter cypress-circleci-reporter
