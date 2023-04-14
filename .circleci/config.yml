@@ -43,13 +43,16 @@ jobs:
   
   run_cypress_tests:
     docker:
-        - image: cimg/node:16.16
+        - image: cimg/node:19.9.0
     parallelism: 3        # or any other number that suits your needs
     steps:
       - checkout
       - run:
           name: Install deps
           command: yarn install
+      - run:
+          name: Install cypress binary
+          command: yarn cypress install
       - run:
           name: Run cypress tests
           command: yarn cypress run --spec "$(circleci tests glob "./cypress/e2e/**/*.cy.js" | circleci tests split --split-by=timings | paste -sd "," -)" --reporter cypress-circleci-reporter
