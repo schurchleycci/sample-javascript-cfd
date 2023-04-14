@@ -47,7 +47,7 @@ jobs:
     parallelism: 3        # or any other number that suits your needs
     steps:
       - checkout
-       run:
+      - run:
           name: Install deps
           command: yarn install
       - run:
