@@ -12,7 +12,7 @@ orbs:
   # Orbs reduce the amount of configuration required for common tasks.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
   node: circleci/node@5
-  cypress: cypress-io/cypress@2.1.0
+  cypress: cypress-io/cypress@3.1.1
 
 jobs:
   # Below is the definition of your job to test your Node app. You can rename and customize it as you want.
