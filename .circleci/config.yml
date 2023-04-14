@@ -40,7 +40,10 @@ jobs:
             git bisect bad 065cd263aca7c9573206d21366141fe56a3a1773
             git bisect good 3106a0587a16f7c62db7edf1501365abe1a774c3
             git bisect run yarn test:unit french.spec.ts
+  
   run_cypress_tests:
+    docker:
+        - image: cimg/node:16.16
     parallelism: 3        # or any other number that suits your needs
     steps:
       - run:
