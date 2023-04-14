@@ -42,6 +42,7 @@ jobs:
             git bisect run yarn test:unit french.spec.ts
   
   run_cypress_tests:
+    parallelism: 3
     docker:
         - image: cimg/node:16.19.1-browsers
     steps:
