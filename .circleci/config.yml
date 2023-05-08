@@ -54,7 +54,7 @@ jobs:
             mkdir test_results
       - run:
           name: Install the reporter
-          command: yarn add circleci-cypress-reporter
+          command: yarn add cypress-circleci-reporter mocha --dev
       - run:
           name: Run cypress tests
           command: |
