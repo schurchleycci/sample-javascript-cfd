@@ -50,11 +50,11 @@ jobs:
       - run:
           name: Install deps
           command: |
-            npm install
+            yarn install
             mkdir test_results
       - run:
           name: Install the reporter
-          command: npm install --save-dev circleci-cypress-reporter
+          command: yarn install circleci-cypress-reporter
       - run:
           name: Run cypress tests
           command: |
