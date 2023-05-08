@@ -75,8 +75,9 @@ workflows:
   sample:
     jobs:
      # - test
+       - run_cypress_tests
        - hold:
           type: approval
-       - run_cypress_tests:
+       - test:
           requires:
             - hold
