@@ -1,80 +1,27 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-executors:
-  node-cypress:
-    docker:
-      - image: "cypress/browsers:node16.14.0-chrome99-ff97"
+# this allows you to use CircleCI's dynamic configuration feature
+setup: true
 
+# the continuation orb is required in order to use dynamic configuration
 orbs:
-  # The Node.js orb contains a set of prepackaged CircleCI configuration you can utilize
-  # Orbs reduce the amount of configuration required for common tasks.
-  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/node
-  node: circleci/node@5
-  cypress: cypress-io/cypress@3.1.1
+  continuation: circleci/continuation@0.1.2
 
+# our defined job, and its steps
 jobs:
-  # Below is the definition of your job to test your Node app. You can rename and customize it as you want.
-  test:
-    # These next lines define a docker executor: https://circleci.com/docs/2.0/executor-types/
-    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
-    docker:
-      - image: cimg/node:19.9.0
-    # Then run your tests!
+  setup:
+    executor: continuation/default
     steps:
-      # Checkout the code as the first step.
-      - checkout
-      # The orb install-packages step will also automatically cache them for faster future runs.
-      - node/install-packages:
-          pkg-manager: "yarn"
-          override-ci-command: "yarn install"
-      - run:
-          name: Run tests
+      - checkout # checkout code
+      - run: # run a command
+          name: Generate config
           command: |
-            touch ./tests/unit/french.spec.ts
-            echo "import { mount } from \"@vue/test-utils\";import CartItemCard from \"@/components/CartItemCard.vue\";describe(\"CartItemCard.vue\", () => {it(\"renders the menuItem prop data\", () => {const menuItem = {id: 1, name: \"French Fries\", description: \"Fried potato rectangles\", price: \"2.99\", imageId: \"1\",};const wrapper = mount(CartItemCard, {props: { menuItem },} as any);expect(wrapper.text()).toContain(\"French\");});});" > ./tests/unit/french.spec.ts
-            cat ./tests/unit/french.spec.ts
-            git bisect start
-            git bisect bad 065cd263aca7c9573206d21366141fe56a3a1773
-            git bisect good 3106a0587a16f7c62db7edf1501365abe1a774c3
-            git bisect run yarn test:unit french.spec.ts
-  
-  run_cypress_tests:
-    parallelism: 3
-    docker:
-        - image: cimg/node:16.19.1-browsers
-    steps:
-      - checkout
-      - run:
-          name: Install deps
-          command: |
-            yarn install
-            mkdir test_results
-      - run:
-          name: Install the reporter
-          command: yarn add cypress-circleci-reporter mocha --dev
-      - run:
-          name: Run cypress tests
-          command: |
-            circleci tests glob "cypress/**/*.cy.js" | circleci tests run --command="xargs npx cypress run --reporter cypress-circleci-reporter --spec" --verbose
-      - store_test_results:
-          path: test_results
-      - store_artifacts:
-          path: test_results
+            ./generate-config > generated_config.yml
+      - continuation/continue:
+          configuration_path: generated_config.yml # use newly generated config to continue
 
+# our single workflow, that triggers the setup job defined above
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
-  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample:
+  setup:
     jobs:
-     # - test
-       - run_cypress_tests
-       - hold:
-          type: approval
-       - test:
-          requires:
-            - hold
+      - setup
