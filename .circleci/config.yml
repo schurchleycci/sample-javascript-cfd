@@ -14,9 +14,14 @@ workflows:
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
   # CircleCI will run this workflow on every commit.
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample:
+  run-tests:
     jobs:
       - test:
+            pkg-manager: yarn
+            test-results-for: jest
+            override-ci-command: "yarn install"
+            run-command: "test:unit"
+      - e2e-test:
             pkg-manager: yarn
             test-results-for: jest
             override-ci-command: "yarn install"
