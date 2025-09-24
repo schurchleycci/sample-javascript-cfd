@@ -108,7 +108,7 @@ ion-menu.md ion-list#inbox-list ion-list-header {
 }
 
 ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
+  font-size: 14px;
 
   margin-bottom: 18px;
 
